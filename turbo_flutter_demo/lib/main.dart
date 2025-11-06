@@ -1,122 +1,231 @@
 import 'package:flutter/material.dart';
-
+import 'package:gravity_engine_flutter_sdk/GravityEngineSDK.dart';
 void main() {
   runApp(const MyApp());
 }
 
+
+class MyCallBack extends InitializeCallback {
+  @override
+  void onSuccess(Map<Object?, Object?>? responseJson) {
+    // 成功回调的处理
+    print("Initialization succeeded with response: $responseJson");
+  }
+
+  @override
+  void onFailed(String? errorMsg) {
+    // 失败回调的处理
+    print("Initialization failed with error: $errorMsg");
+  }
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return MaterialApp(home: TestPage());
+  }
+}
+
+class TestPage extends StatelessWidget {
+  // 定义不同按钮的事件处理函数
+  void _startGravityEngine() {
+    print('startGravityEngine');
+    GravityEngineSDK.startGravityEngine(
+      "C7GkLEgnRqiMnpvguAsoYemxkKoea3wt",
+      SDKRunMode.DEBUG
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  void _enableAutoTrack() {
+    print('enableAutoTrack');
+    GravityEngineSDK.enableAutoTrack(
+      [AUTO_TRACK_EVENTS.APP_START, AUTO_TRACK_EVENTS.APP_END,AUTO_TRACK_EVENTS.APP_SCENE_VIEW,AUTO_TRACK_EVENTS.APP_SCENE_CLICK],
+      {"test": "q111"},
+    );
+  }
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  void _initializeIOS() {
+    print('initializeIOS');
+    GravityEngineSDK.initializeIOS(
+      true,
+      "",
+      "",
+      "",
+      false,
+      "appstore",
+      MyCallBack(),
+    );
+  }
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  void _trackPayEvent() {
+    print('trackPayEvent');
+    GravityEngineSDK.trackPayEvent(
+      300,
+      "CNY",
+      DateTime.now().millisecondsSinceEpoch.toString(),
+      "月卡",
+      "支付宝",
+    );
+  }
 
-  final String title;
+  void _trackAdShowEvent() {
+    print('trackAdShowEvent');
+    GravityEngineSDK.trackAdShowEvent(
+      "topon",
+      "placement_id",
+      "ad_source_id",
+      "reward",
+      "csj",
+      1.0,
+    );
+  }
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  void _flush() {
+    print('flush');
+    GravityEngineSDK.flush();
+  }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+
+  void _setAutoTrackProperties() {
+    print('setAutoTrackProperties');
+    GravityEngineSDK.setAutoTrackProperties([AUTO_TRACK_EVENTS.APP_INSTALL,AUTO_TRACK_EVENTS.APP_END], {"key1":2});
+  }
+
+
+  void _setSuperProperties() {
+    print('setSuperProperties');
+    GravityEngineSDK.setSuperProperties({"age":2,"channel":"xiaomi"});
+  }
+
+
+  void _unsetSuperProperty() {
+    print('unsetSuperProperty');
+    GravityEngineSDK.unsetSuperProperty("SUPER_PROPERTY_CHANNEL");
+  }
+
+  void _clearSuperProperties() {
+    print('clearSuperProperties');
+    GravityEngineSDK.clearSuperProperties();
+  }
+
+
+  void _userSet() {
+    print('userSet');
+    GravityEngineSDK.userSet({"\$name":"turboUserName","\$gender":"男"});
+  }
+
+
+  void _userUnset() {
+    print('userUnset');
+    GravityEngineSDK.userUnset(["\$age"]);
+  }
+
+
+  void _userSetOnce() {
+    print('userSetOnce');
+    GravityEngineSDK.userSetOnce({"\$gender":"male"});
+  }
+
+
+  void _userAdd() {
+    print('userAdd');
+    GravityEngineSDK.userAdd({"\$age":27});
+  }
+
+
+  void _userNumberMin() {
+    print('userNumberMin');
+    GravityEngineSDK.userNumberMin({"ad_ecpm_min":100});
+  }
+
+
+  void _userNumberMax() {
+    print('userNumberMax');
+    GravityEngineSDK.userNumberMax({"ad_ecpm_max":300});
+  }
+
+  void _userAppend() {
+    print('userAppend');
+    GravityEngineSDK.userAppend({"Movies":["Interstellar","The Negro Motorist Green Book"]});
+  }
+
+
+  void _userUniqAppend() {
+    print('userUniqAppend');
+    GravityEngineSDK.userUniqAppend({"Movies":["Interstellar","The Negro Motorist Green Book"]});
+  }
+
+  void _userDelete() {
+    print('userDelete');
+    GravityEngineSDK.userDelete();
+  }
+
+  Future<void> _getSdkInfo() async {
+    // 这里要加 async，因为我们要用 await
+    String? version = await GravityEngineSDK.getPlatformVersion();
+    print("getPlatformVersion:$version");
+
+    Map<Object?, Object?>? getSuperProperties = await GravityEngineSDK.getSuperProperties();
+    print('getSuperProperties:$getSuperProperties');
+    
+    Map<Object?, Object?>? getCurrentPresetProperties = await GravityEngineSDK.getCurrentPresetProperties();
+    print('getCurrentPresetProperties:$getCurrentPresetProperties');
+
+    String? getDeviceId = await GravityEngineSDK.getDeviceId();
+    print('getDeviceId:$getDeviceId');
+    
+    String? getCurrentClientID = await GravityEngineSDK.getCurrentClientID();
+    print('getCurrentClientID:$getCurrentClientID');
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+  final List<Map<String, dynamic>> buttons = [
+      {'title': 'startGravityEngine', 'onPressed': _startGravityEngine},
+      {'title': 'enableAutoTrack', 'onPressed': _enableAutoTrack},
+      {'title': 'initializeIOS', 'onPressed': _initializeIOS},
+      {'title': 'trackPayEvent', 'onPressed': _trackPayEvent},
+      {'title': 'trackAdShowEvent', 'onPressed': _trackAdShowEvent},
+      {'title': 'flush', 'onPressed': _flush},
+      {'title': 'setAutoTrackProperties', 'onPressed': _setAutoTrackProperties},
+      {'title': 'setSuperProperties', 'onPressed': _setSuperProperties},
+      {'title': 'unsetSuperProperty', 'onPressed': _unsetSuperProperty},
+      {'title': 'clearSuperProperties', 'onPressed': _clearSuperProperties},
+      {'title': 'userSet', 'onPressed': _userSet},
+      {'title': 'userUnset', 'onPressed': _userUnset},
+      {'title': 'userSetOnce', 'onPressed': _userSetOnce},
+      {'title': 'userAdd', 'onPressed': _userAdd},
+      {'title': 'userNumberMin', 'onPressed': _userNumberMin},
+      {'title': 'userNumberMax', 'onPressed': _userNumberMax},
+      {'title': 'userAppend', 'onPressed': _userAppend},
+      {'title': 'userUniqAppend', 'onPressed': _userUniqAppend},
+      {'title': 'userDelete', 'onPressed': _userDelete},
+      {'title': 'getSdkInfo', 'onPressed': _getSdkInfo},
+    ];
+
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+      appBar: AppBar(title: const Text('Flutter Test Page')),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: buttons.length,
+        itemBuilder: (context, index) {
+          final item = buttons[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                textStyle: const TextStyle(fontSize: 16),
+              ),
+              onPressed: item['onPressed'],
+              child: Text(item['title']),
             ),
-          ],
-        ),
+          );
+        },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
