@@ -79,10 +79,10 @@ packages:
     dependency: "direct main"
     description:
       name: gravity_engine_flutter_sdk
-      sha256: "941ca5736eeac6ba5967c0edd45f02d8b25f11f290f2512e40d21ab82b610ee9"
+      sha256: bd4cbbd1344cb5bcd63a248e39323005268c81de4fa21d4016c80e03b64954c2
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.3"
   leak_tracker:
     dependency: transitive
     description:

@@ -2,6 +2,10 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven("https://nexus.gravity-engine.com/repository/maven-releases/")
+        maven("https://nexus.gravity-engine.com/repository/maven-snapshots/")
+        maven("https://developer.huawei.com/repo")
+        maven("https://developer.hihonor.com/repo")
     }
 }
 

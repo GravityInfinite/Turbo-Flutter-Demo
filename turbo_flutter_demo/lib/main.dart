@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:gravity_engine_flutter_sdk/GravityEngineSDK.dart';
 void main() {
   runApp(const MyApp());
@@ -57,6 +59,16 @@ class TestPage extends StatelessWidget {
       MyCallBack(),
     );
   }
+  void _initializeAndroid() {
+    print('initializeAndroid');
+    GravityEngineSDK.initialize(
+      "",
+      "",
+      false,
+      "xiaomi",
+      MyCallBack(),
+    );
+  }
 
   void _trackPayEvent() {
     print('trackPayEvent');
@@ -81,6 +93,21 @@ class TestPage extends StatelessWidget {
     );
   }
 
+  void _trackWithdrawEvent() {
+    print('trackWithdrawEvent');
+    GravityEngineSDK.trackWithdrawEvent(
+      300,
+      "CNY",
+      DateTime.now().millisecondsSinceEpoch.toString(),
+      "用户抽奖提现",
+      "支付宝",
+    );
+  }
+
+  void _trackRegisterEvent() {
+    print('trackRegisterEvent');
+    GravityEngineSDK.trackRegisterEvent();
+  }
 
   void _flush() {
     print('flush');
@@ -187,8 +214,11 @@ class TestPage extends StatelessWidget {
       {'title': 'startGravityEngine', 'onPressed': _startGravityEngine},
       {'title': 'enableAutoTrack', 'onPressed': _enableAutoTrack},
       {'title': 'initializeIOS', 'onPressed': _initializeIOS},
+      {'title': 'initializeAndroid', 'onPressed': _initializeAndroid},
       {'title': 'trackPayEvent', 'onPressed': _trackPayEvent},
       {'title': 'trackAdShowEvent', 'onPressed': _trackAdShowEvent},
+      {'title': 'trackWithdrawEvent', 'onPressed': _trackWithdrawEvent},
+      {'title': 'trackRegisterEvent', 'onPressed': _trackRegisterEvent},
       {'title': 'flush', 'onPressed': _flush},
       {'title': 'setAutoTrackProperties', 'onPressed': _setAutoTrackProperties},
       {'title': 'setSuperProperties', 'onPressed': _setSuperProperties},
