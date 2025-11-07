@@ -33,10 +33,7 @@ class TestPage extends StatelessWidget {
   // 定义不同按钮的事件处理函数
   void _startGravityEngine() {
     print('startGravityEngine');
-    GravityEngineSDK.startGravityEngine(
-      "C7GkLEgnRqiMnpvguAsoYemxkKoea3wt",
-      SDKRunMode.DEBUG
-    );
+    GravityEngineSDK.startGravityEngine("C7GkLEgnRqiMnpvguAsoYemxkKoea3wt");
   }
 
   void _enableAutoTrack() {
