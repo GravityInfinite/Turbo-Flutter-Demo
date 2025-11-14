@@ -1,2 +1,4 @@
-# Turbo-Flutter-Demo
-一站式智能增长和变现解决方案服务引擎
+# GravityEngine SDK Demo for Flutter
+![output](GravityEngine-logo.png)
+
+This is the [GravityEngine](https://www.gravity-engine.com/)™ SDK Demo for Flutter. Documentation is available on our [help center](https://help.gravity-engine.com/).
